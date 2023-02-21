@@ -31,6 +31,9 @@ func init() {
 				configs.AwsKey, configs.AwsPassword, ""),
 		},
 	)
+	if err != nil {
+		panic(err)
+	}
 	s3Client = s3.New(sess)
 	s3Bucket = configs.AwsBucketName
 }
