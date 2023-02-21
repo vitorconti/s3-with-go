@@ -7,9 +7,10 @@ import (
 var cfg *conf
 
 type conf struct {
-	AwsRegion    string `mapstructure:"AWS_REGION"`
-	AwsKey       string `mapstructure:"AWS_KEY"`
-	AWS_PASSWORD string `mapstructure:"AWS_PASSWORD"`
+	AwsRegion     string `mapstructure:"AWS_REGION"`
+	AwsKey        string `mapstructure:"AWS_KEY"`
+	AwsPassword   string `mapstructure:"AWS_PASSWORD"`
+	AwsBucketName string `mapstructure:"AWS_BUCKET"`
 }
 
 func LoadConfig(path string) (*conf, error) {
