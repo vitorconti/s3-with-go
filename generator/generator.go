@@ -12,8 +12,8 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		f.Close()
 		f.WriteString("Hello World")
 		i++
+		f.Close()
 	}
 }
