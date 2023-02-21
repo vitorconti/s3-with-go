@@ -71,14 +71,14 @@ func main() {
 
 }
 
-func uploadFile(filename string, uploadControl <-chan struct{}, errorFileUpload <-chan string) {
+func uploadFile(filename string, uploadControl <-chan struct{}, errorFileUpload chan<- string) {
 	completeFileName := fmt.Sprintf("./tmp/%s", filename)
 	fmt.Printf("Uploading file %s to bucket %s \n", completeFileName, s3Bucket)
 	f, err := os.Open(completeFileName)
 	if err != nil {
 		fmt.Printf("Error opening file %s \n", completeFileName)
 		<-uploadControl
-		<-errorFileUpload
+		errorFileUpload <- completeFileName
 		return
 	}
 	defer f.Close()
@@ -92,7 +92,7 @@ func uploadFile(filename string, uploadControl <-chan struct{}, errorFileUpload 
 	if err != nil {
 		fmt.Printf("Error uploading file %s \n", completeFileName)
 		<-uploadControl
-		<-errorFileUpload
+		errorFileUpload <- completeFileName
 		return
 	}
 	fmt.Printf("File uploaded successfully %s \n", completeFileName)
